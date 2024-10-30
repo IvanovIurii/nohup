@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fcntl.h>
 #include <filesystem>
+#include <signal.h>
 
 using namespace std;
 
@@ -24,6 +25,8 @@ int main(int argc, char *argv[])
     pid_t pid = fork();
     if (pid == 0)
     {
+        signal(SIGHUP, SIG_IGN);
+
         int nfd = open("/dev/null", O_WRONLY);
         if (nfd == -1)
         {
